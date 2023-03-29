@@ -1,0 +1,476 @@
+{% extends 'base.html' %}
+{% load static %}
+
+  
+{% block title %}Detay{% endblock title %}
+
+
+{% block css %}
+  <style>
+    .swiper {
+      width: 100%;
+      height: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .swiper-slide {
+      background-size: cover;
+      background-position: center;
+    }
+    
+    .mySwiper2 {
+      height: 80%;
+      width: 100%;
+    }
+    
+    .mySwiper3 {
+      height: 20%;
+      box-sizing: border-box;
+      padding: 10px 0;
+    }
+    
+    .mySwiper3 .swiper-slide {
+      width: 25%;
+      height: 100%;
+      opacity: 0.4;
+    }
+    
+    .mySwiper3 .swiper-slide-thumb-active {
+      opacity: 1;
+    }
+    
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    } 
+  .sizeradio{
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      -ms-appearance: none;
+      -o-appearance: none;
+      appearance: none;
+  }
+  .sizeradio:checked + label{
+      background: #b2b2b2 !important;
+      box-shadow: inset 0px 0px 8px 4px #00000060;
+  }
+  .card {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 20px;
+      width: 100%;
+      word-wrap: break-word;
+      background-color: #fff;
+      background-clip: border-box;
+      border-radius: 6px;
+  }
+  
+  .comment-box{
+      
+      padding:5px;
+  }
+  
+  
+  
+  .comment-area textarea{
+     resize: none; 
+          border: 1px solid #ad9f9f;
+  }
+  
+  
+  .form-control:focus {
+      color: #495057;
+      background-color: #fff;
+      border-color: #ffffff;
+      outline: 0;
+      box-shadow: 0 0 0 1px orange !important;
+  }
+  
+  .send {
+      color: #fff;
+      background-color: orange;
+      border-color: orange;
+  }
+  
+  .send:hover {
+      color: #fff;
+      background-color: orange;
+      border-color: orange;
+  }
+  
+  
+  .rating {
+  display: flex;
+  margin-top: -15px;
+  flex-direction: row-reverse;
+  float: left;
+  }
+  .ratingfull{
+  display: flex;
+  margin-top: -15px;
+  float: left;
+  }
+  
+  .rating>input {
+      display: none
+  }
+
+  .star,.star-full{
+      position: relative;
+      width: 35px;
+      font-size: 35px !important;
+      color: orange;
+      cursor: pointer;
+  }
+  .star-full::before{
+      content: "\2605";
+      position: absolute;
+      opacity: 1
+  }
+  
+  .rating>label {
+      position: relative;
+      width: 35px;
+      font-size: 35px !important;
+      color: orange;
+      cursor: pointer;
+  }
+  
+  .rating>label::before {
+      content: "\2605";
+      position: absolute;
+      opacity: 0
+  }
+  
+  .rating>label:hover:before,
+  .rating>label:hover~label:before {
+      opacity: 1 !important
+  }
+  
+  .rating>input:checked~label:before {
+      opacity: 1
+  }
+  
+  .rating:hover>input:checked~label:before {
+      opacity: 0.4
+  }
+  </style>
+{% endblock css %}
+
+{% block content %}
+<form method="POST">
+{% csrf_token %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card d-flex rounded-0" style="width: 100%;">
+                <div class="row m-5">
+                      <div class="col-5">
+                        <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper2">
+                          <div class="swiper-wrapper">
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}"  />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                          </div>
+                          <div class="swiper-button-next text-secondary"></div>
+                          <div class="swiper-button-prev text-secondary"></div>
+                        </div>
+
+                        <div thumbsSlider="" class="swiper mySwiper3">
+                          <div class="swiper-wrapper">
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}"/>
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                            <div class="swiper-slide border border-1">
+                              <img src="{{ card.image.url }}" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    
+                    <div class="card-body col-7 d-flex justify-content-around flex-column">
+                      <h1 class="card-title">{{ card.title }}</h1>
+                      <h5>Değerlendirme Puanı {{ card.stars }} </h5>
+                      <a href="#yorum" class="text-dark w-50"><h5 class="mb-3">{{ comments|length }} Değerlendirme</h5></a>
+                      <input type="hidden" name="id" value="{{ card.id }}">
+                      <p class="card-text fs-1" id="cardprice">₺ {{ listprice|first }}</p>
+                      <div class="col-auto">
+                        <ul class="list-inline pb-3">
+                            <li class="list-inline-item text-right">
+                                Adet
+                                <input type="hidden" name="adet" id="product-quanity" value="1">
+                            </li>
+                            <li class="list-inline-item"><span class="btn btn-dark" id="btn-minus">-</span></li>
+                            <li class="list-inline-item"><span class="badge bg-dark" id="var-value">1</span></li>
+                            <li class="list-inline-item"><span class="btn btn-dark" id="btn-plus">+</span></li>
+                        </ul>
+                    </div>
+                    
+                    {% if listbeden %}
+                    <div>
+                      <ul class="list-inline pb-3">
+                        <li class="list-inline-item">Beden :
+                        </li>
+                        
+                        <li class="list-inline-item">
+                            <input type="radio" name="size" onclick="productSize(this.value)" value="S" id="sizeS" class="sizeradio" required>
+                            <label for="sizeS" class="btn btn-dark">S</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="size" onclick="productSize(this.value)" value="M" id="sizeM" class="sizeradio" required>
+                            <label for="sizeM" class="btn btn-dark">M</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="size" onclick="productSize(this.value)" value="L" id="sizeL" class="sizeradio" required>
+                            <label for="sizeL" class="btn btn-dark">L</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="size" onclick="productSize(this.value)" value="XL" id="sizeXL" class="sizeradio" required>
+                            <label for="sizeXL" class="btn btn-dark">XL</label>
+                        </li>
+                        
+                    </ul>
+                    </div>
+                    {% else %}
+                    <div>
+                      <ul class="list-inline pb-3">
+                        <li class="list-inline-item">Numara :
+                        </li>
+                        
+                        <li class="list-inline-item">
+                            <input type="radio" name="numara" onclick="productNumara(this.value)" value="40" id="size40" class="sizeradio" required>
+                            <label for="size40" class="btn btn-dark">40</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="numara" onclick="productNumara(this.value)" value="41" id="size41" class="sizeradio" required>
+                            <label for="size41" class="btn btn-dark">41</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="numara" onclick="productNumara(this.value)" value="42" id="size42" class="sizeradio" required>
+                            <label for="size42" class="btn btn-dark">42</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="numara" onclick="productNumara(this.value)" value="43" id="size43" class="sizeradio" required>
+                            <label for="size43" class="btn btn-dark">43</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="numara" onclick="productNumara(this.value)" value="44" id="size44" class="sizeradio" required>
+                            <label for="size44" class="btn btn-dark">44</label>
+                        </li>
+                        <li class="list-inline-item">
+                            <input type="radio" name="numara" onclick="productNumara(this.value)" value="45" id="size45" class="sizeradio" required>
+                            <label for="size45" class="btn btn-dark">45</label>
+                        </li>
+                        
+                    </ul>
+                    </div>
+                    {% endif %}
+                      
+                    <script>
+                      let listprice = "{{ listprice }}".replace("[","").replace("]","").trim().split(", ");
+                      let listbeden = "{{ listbeden|safe }}".replace(/'/g, '').replace("[", "").replace("]", "").split(", ");
+                      let listnumara = "{{ listnumara|safe }}".replace(/'/g, '').replace("[", "").replace("]", "").split(", ");
+                      var productprice = document.getElementById("cardprice");
+                      var productsize;
+                      var productnumara;
+                      
+                      productSize = (size)=>{
+                        productsize = size.toLowerCase();
+                        productPrice();
+                    }
+
+                    productPrice = ()=>{
+                      for (i = 0; i < listprice.length; i++) {
+                          if (listbeden[i] === productsize) {
+                              productprice.innerText = "₺"+" "+listprice[i] 
+                          }
+                      }
+                  }
+
+                  productNumara = (numara)=>{
+                    productnumara = numara;
+                    productPrice2();
+                  }
+                    productPrice2 = ()=>{
+                      for (i = 0; i < listprice.length; i++) {
+                          if (listnumara[i] === productnumara) {
+                            console.log(listnumara[i])
+                              productprice.innerText = "₺"+" "+listprice[i] 
+                          }
+                      }
+                  }
+                    </script>
+                    <form method="POST">
+                      {% csrf_token %}
+                    {% if request.user.is_authenticated %}
+                    <button type="submit" name="submit" value="sepetbuton" class="btn btn-dark py-2">SEPETE EKLE</button>
+                      {% else %}
+                      <a href="{% url 'uyelik' %}" class="btn btn-dark py-2">SEPETE EKLE</a>
+                    {% endif %}
+                  </form>
+                      <div class="mt-5">
+                        <h6>Ürün Özellikleri</h6>
+                        <ul>
+                          <li style="line-height: 30px;">{{ card.text }}</li>
+                        </ul>
+                      </div>
+                    </div>
+                   </div> 
+            </div>
+        </div>
+        <div class="col-12">
+          <h2 class="mt-3">Yorum Yap</h2>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="rating"> 
+              <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+              <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label> 
+              <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+              <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+              <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+            </div>
+            <input type="text" class="form-control my-3" name="title" placeholder="Yorum Başlığı">
+            <textarea name="text" cols="30" rows="10" placeholder="Yorum..." class="form-control my-3" style="resize: none;"></textarea>
+            <button type="submit" name="submit" value="butonYorum" class="btn btn-primary mt-3 d-block ms-auto px-3 py-2">Paylaş</button>
+          </form>
+        </div>
+        <h2 class="mt-4" id="yorum">Yorumlar</h2>
+        <hr>
+        <section style="background-color: #e7effd;">
+          <div class="container py-5 text-dark">
+            <div class="row">
+              {% for i in comments %}
+              <div class="col-12">
+                <div class="d-flex flex-start mb-4">
+                  <div class="d-flex flex-column">
+                    <img class="rounded-circle shadow-1-strong me-3"
+                    src="{{ userinfo.image.url }}" alt="avatar" width="65"
+                    height="65"/>
+                    <h5 class="ms-3 mt-2">{{ i.user }}</h5>
+                  </div>
+                  <div class="card w-100 p-2">
+                    <div class="card-body p-0 d-flex flex-column">
+                      <div class="d-flex justify-content-between">
+                       <div class="d-flex">
+                        {% for star in '12345'|make_list %}
+                        {% if star|add:'0' <= i.star %}
+                        <p class="star-full m-0 ">☆</p>             
+                        {% else %}
+                        <p class="star m-0">☆</p>  
+                        {% endif %}  
+                         {% endfor %}
+                        </div>
+                        <p class="small">{{ i.date_now }}</p>
+                                </div>
+                                <h4>{{ i.title }}</h4>
+                                <div class="d-flex justify-content-between">
+                                  <p>{{ i.text }}</p>
+                                </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               {% endfor %} 
+              </div>
+            </div>
+          </div>
+        </section>
+    </div>
+</form>
+{% endblock content %}
+       
+
+{% block js %}
+  <script>
+    var swiper = new Swiper(".mySwiper3", {
+      loop: true,
+      spaceBetween: 10,
+      slidesPerView: 4,
+      freeMode: true,
+      watchSlidesProgress: true,
+    });
+    var swiper2 = new Swiper(".mySwiper2", {
+      loop: true,
+      spaceBetween: 10,
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      thumbs: {
+        swiper: swiper,
+      },
+    });
+
+    $('#btn-minus').click(function(){
+      var val = $("#var-value").html();
+      val = (val=='1')?val:val-1;
+      $("#var-value").html(val);
+      $("#product-quanity").val(val);
+      return false;
+    });
+    $('#btn-plus').click(function(){
+      var val = $("#var-value").html();
+      val++;
+      $("#var-value").html(val);
+      $("#product-quanity").val(val);
+      return false;
+    });
+  </script>
+{% endblock js %}
+  

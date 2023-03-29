@@ -1,0 +1,209 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}SEPET{% endblock title %}
+  
+
+
+{% block css %}
+    <style>
+      body{
+        background-color: #d2c9ff;
+      }
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+      }
+            
+            .card-registration .select-input.form-control[readonly]:not([disabled]) {
+            font-size: 1rem;
+            line-height: 2.15;
+            padding-left: .75em;
+            padding-right: .75em;
+            }
+            
+            .card-registration .select-arrow {
+            top: 13px;
+            }
+            
+            .bg-grey {
+            background-color: #eae8e8;
+            }
+            
+            @media (min-width: 992px) {
+            .card-registration-2 .bg-grey {
+            border-top-right-radius: 16px;
+            border-bottom-right-radius: 16px;
+            }
+            }
+            
+            @media (max-width: 991px) {
+            .card-registration-2 .bg-grey {
+            border-bottom-left-radius: 16px;
+            border-bottom-right-radius: 16px;
+            }
+            }
+    </style>
+{% endblock css %}
+
+{% block content %}
+
+ 
+
+<section class="h-custom">
+        <div class="container mt-5">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-12">
+              <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                <div class="card-body p-0">
+                  <div class="row g-0">
+                    <form method="POST" class="col-lg-8">
+                      {% csrf_token %}
+                      <div class="p-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                          <h1 class="fw-bold mb-0 text-black">Alışveriş Sepetiniz</h1>
+                          <h6 class="mb-0 text-muted">{{ urun|length }} Ürün</h6>
+                        </div>
+                        <button type="submit" class="btn btn-success d-block ms-auto">Güncelle</button>
+                        <div class="pt-3">
+                          <h6 class="mb-0">
+                            <a href="{% url 'magaza' %}" class="text-body"><i class="fas fa-long-arrow-alt-left me-2"></i>Alışverişe devam et</a>
+                          </h6>
+                        </div>
+                        <hr class="my-4">
+                        
+                        {% for i in urun %}
+                        
+                        {% if i.Aurun %}
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <a href="{% url 'detail' i.Aurun.card.slug %}"><img src="{{ i.Aurun.card.image.url }}" class="img-fluid rounded-3"></a>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-black mb-0">{{ i.Aurun.card.title }}</h6>
+                            <h6 class="mt-2">Numara: {{ i.Aurun.beden }}</h6>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <button type="button" class="btn btn-link px-2"
+                              onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <input id="form{{ i.id }}" min="1" name="adet{{ i.id }}" value="{{ i.adet }}" type="number"
+                              class="form-control form-control-sm"/>
+                            <button type="button" class="btn btn-link px-2"
+                              onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <p class="mb-0" id="fiyat">₺ {{ i.toplamFiyat }}</p>
+                          </div>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <a href="{% url 'urunDelete' i.id %}" class="text-muted"><i class="fas fa-times"></i></a>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        {% endif %}
+                        {% if i.Eurun %}
+                        <div class="row mb-4 d-flex justify-content-between align-items-center">
+                          <div class="col-md-2 col-lg-2 col-xl-2">
+                            <a href="{% url 'detail' i.Eurun.card.slug %}"><img src="{{ i.Eurun.card.image.url }}" class="img-fluid rounded-3"></a>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-3">
+                            <h6 class="text-black mb-0">{{ i.Eurun.card.title }}</h6>
+                            <h6 class="mt-2">Beden: {{ i.Eurun.beden }}</h6>
+                          </div>
+                          <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                            <button type="button" class="btn btn-link px-2"
+                              onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                              <i class="fas fa-minus"></i>
+                            </button>
+                            <input id="form{{ i.id }}" min="1" name="adet{{ i.id }}" value="{{ i.adet }}" type="number"
+                              class="form-control form-control-sm"/>
+                            <button type="button" class="btn btn-link px-2"
+                              onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+                              <i class="fas fa-plus"></i>
+                            </button>
+                          </div>
+                          <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                            <p class="mb-0" id="fiyat">₺ {{ i.toplamFiyat }}</p>
+                          </div>
+                          <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                            <a href="{% url 'urunDelete' i.id %}" class="text-muted"><i class="fas fa-times"></i></a>
+                          </div>
+                        </div>
+                        <hr class="my-4">
+                        {% endif %}
+                        {% endfor %}
+                          
+      
+      
+                        
+                      </div>
+                    </form>
+                    <div class="col-lg-4 bg-grey">
+                      <div class="p-5">
+                        <h3 class="fw-bold mb-5 mt-2 pt-1">Yaz Sezonu</h3>
+                        <hr class="my-4">
+      
+                        <div class="d-flex justify-content-between mb-3">
+                          <h5 class="text-uppercase">{{ urun|length }} Ürün Toplamı</h5>
+                          <h5>₺ {{ uruntoplam }}</h5>
+                        </div>
+                        
+                        {% if uruntoplam >= 350 %}
+                        <p class="text-center">350 TL ve üzeri Ücretsiz Kargo</p>
+                        <hr class="my-4 border-2 border-dark">
+                        <div class="d-flex justify-content-between mb-5">
+                          <h5 class="text-uppercase">Toplam Fiyat</h5>
+                          <h5>₺ {{ uruntoplam }}</h5>
+                        </div>
+                        {% else %}
+                        <div class="d-flex justify-content-between mb-4">
+                          <h5 class="text-uppercase">Kargo</h5>
+                          
+                          {% if urun|length == 0 %}
+                          <h5>₺ 0</h5>
+                          {% else %}
+                          <h5>₺ 15.0</h5>
+                            
+                          {% endif %}
+                            
+                        </div>
+
+                        <hr class="my-4 border-2 border-dark">
+
+                        <div class="d-flex justify-content-between mb-5">
+                          <h5 class="text-uppercase">Toplam Fiyat</h5>
+                          <h5>₺ {{ toplam }}</h5>
+                        </div>
+                          
+                        {% endif %}
+                          
+                        
+                        <h6 class="text-uppercase">İndirim Kodu</h6>
+      
+                        <div class="mb-5">
+                          <div class="form-outline">
+                            <input type="text" id="form3Examplea2" class="form-control form-control-lg" />
+                          </div>
+                        </div>
+                        <button type="button" class="btn btn-dark btn-block btn-lg d-block m-auto"
+                          data-mdb-ripple-color="dark">Alışverişi Tamamla</button>
+      
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    {% endblock content %}     
+
+    
+    {% block js %}
+      
+    {% endblock js %}
+      

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ÜYELİK{% endblock title %}
+  
+
+{% block content %}
+    <!-- İçerik -->
+    {% if messages %}
+    <ul class="container-fluid p-0 position-absolute">
+      {% for i in messages %}
+    <div class="alert {{ i.tags }} alert-dismissible fade show mb-0 text-center">
+        {{ i }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+  </ul>
+  {% endif %}
+    <div class="container my-5 py-5">
+        
+            
+        <div class="row justify-content-center">
+            <div class="col-5">
+                <form method="POST">
+                  {% csrf_token %}
+                  <h2 class="mb-3 d-block text-center"><strong>ÜYE GİRİŞİ</strong></h2>
+                    <input name="username" type="text" placeholder="Kullanıcı Adı" id="name" class="form-control mb-3">
+                    <input name ="password" type="password" placeholder="Parola" id="sifre" class="form-control mb-3 password">
+                    <div class="form-check my-3 ps-1">
+                    <input type="checkbox" onclick="showPword()">
+                    <label class="check-container">Parolayı Göster</label>
+                    </div>
+                    <div class="form-check my-3 ps-1">
+                      <input type="checkbox" id="box">
+                      <label for="box" class="form-check-label">Beni Hatırla</label><br>
+                    </div>
+                      <a href="{% url 'sifreunutma' %}" class="text-decoration-none d-block text-end text-dark my-3">Şifre mi Unuttum?</a>
+                     <p class="mt-2 text-center">Üye değil misiniz ? Üye olmak için <a href="{% url 'uyekayit' %}">tıklayınız</a></p>
+                    <div class="mb-4">
+                      <a href="#" class="text-decoration-none text-dark"><img src="https://img.icons8.com/color/48/null/google-logo.png" style="width: 30px;" alt="resim"> <i>Google</i> ya da</a>
+                      <a href="#" class="text-decoration-none text-dark"><img src="https://img.icons8.com/color/48/null/facebook.png" style="width: 40px;" alt="resim"> <i>Facebook</i> ile giriş yap!</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary buton d-block ms-auto">Üye Girişi</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+<script>
+  function showPword() {
+    var x = document.getElementsByClassName("password");
+    for (let i = 0; i < x.length; i++){
+        if (x[i].type === "password") {
+          x[i].type = "text";
+        } else {
+          x[i].type = "password";
+        }
+    }
+  }
+
+  
+</script>
+
+{% endblock js %}

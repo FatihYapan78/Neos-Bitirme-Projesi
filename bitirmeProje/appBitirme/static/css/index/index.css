@@ -1,0 +1,191 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+/* Sıfırlama */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Jost', sans-serif;
+}
+input:focus, textarea:focus, button:focus{
+    box-shadow: none !important;
+}
+textarea:focus{
+    outline: none !important;
+}
+button:focus{
+    border: none;
+}
+
+/* Scroll */
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #1367ef;
+}
+
+/* Üst Navbar (iletisim) */
+.iletisim{
+    height: 50px;
+    background-color: #1367ef;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 70px;
+    align-items: center;
+}
+.tel_mail a{
+    color: white;
+    text-decoration: none;
+    margin-left: 20px;
+}
+.sosyal_medya a{
+    color: white;
+    margin-right: 15px;
+}
+
+/* Alt Navbar */
+.active{
+    color: #1367ef !important;
+    background: transparent !important;
+}
+.icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.icon a{
+    text-decoration: none;
+    color: black;
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+.icon a span{
+    font-size: 13px;
+}
+.navbar-nav a{
+    color: black;
+    font-weight: 500;
+}
+.navbar-brand{
+    font-size: 55px;
+    font-family: 'Dancing Script', cursive;
+}
+.dropdown-menu{
+    display: none;
+    transition: all 0.5s ease;
+}
+.dropdown:hover .dropdown-menu{
+    display: block;
+}
+.profil a:hover{
+    background-color: transparent;
+    color: #1367ef;
+}
+.profil li:hover{
+    color: #1367ef;
+}
+/* Slayt */
+.carousel{
+    position: relative;
+}
+
+.carousel-control-prev{
+    position: absolute;
+    top: 40%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #1367ef;
+    opacity: 1%;
+    margin-left: 25px;
+}
+.carousel-control-next{
+    position: absolute;
+    top: 40%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #1367ef;
+    opacity: 1%;
+    margin-right: 25px;
+}
+/* Content */
+/* Ürünler */
+.bi-heart-fill:hover{
+    color: red !important;
+}
+.kart img{
+    height: 350px;
+    object-fit: cover;
+} 
+
+/* Footer */
+.footer{
+    width: 100%;
+    height: 100%;
+}
+.hero-image{
+    background-image: url(../../img/footer/map.png);
+    background-position: left;
+    background-repeat: no-repeat;
+}
+.col-md-9  a{
+    text-decoration: none;
+    color: black;
+}
+.col-md-9 ul li {
+    list-style-type: none;
+    line-height: 30px;
+}
+
+
+/* RESPONSİVE */
+/* Sepet */
+@media(max-width:992px){
+    .col-6 .fiyat{
+        margin: 0 !important;
+    }
+    .col-6 .toplam,.toplam1,.toplam2{
+        margin: 0;
+    }
+}
+@media(max-width:450px){
+    .col-6 .toplam,.toplam1,.toplam2{
+        margin: 5px !important;
+    }
+}
+@media(max-width:542px){
+    #Ilceler{
+       margin-left: 0 !important;
+       margin-top: 10px;
+    }
+}
+/* Footer */
+@media(max-width:767px){
+    .brands img{
+        margin-top: 20px;
+    }
+}
+/* Üst Navbar */
+@media(max-width:684px){
+    .iletisim{
+        padding: 0;
+    }
+}
+@media(max-width:550px){
+    .iletisim{
+        display: block;
+    }
+    .iletisim .tel_mail{
+        text-align: center;
+    }
+    .tel_mail a{
+        margin-left: 5px;
+    }
+    .sosyal_medya{
+        text-align: center;
+    }
+}

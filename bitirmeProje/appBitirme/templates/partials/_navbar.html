@@ -1,0 +1,72 @@
+ {% load static %}
+ <!-- Üst Navbar -->
+        <div class="container-fluid iletisim">
+            <div class="tel_mail">
+                <a href="#" title="Telefon Numarası"><i class="bi bi-telephone"></i> 0370 433 33 02</a>
+                <a href="#" title="E-Posta Adresi"><i class="bi bi-envelope"></i> yapanfatih78@gmail.com</a>
+            </div>
+            <div class="sosyal_medya">
+                <a href="#" title="Facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" title="Twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" title="İnstagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" title="Tiktok"><i class="bi bi-tiktok"></i></a>
+                <a href="#" title="Youtube"><i class="bi bi-youtube"></i></a>
+            </div>    
+        </div>
+    
+        <!-- Alt Navbar -->
+        <nav class="navbar navbar-expand-lg bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="/">FY</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == '/' %}active{% endif %}
+                    " aria-current="page" href="/">ANASAYFA</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">BLOG</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == '/magaza/' %}active{% endif %}" href="{% url 'magaza' %}">ÜRÜNLER</a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == '/iletisim/' %}active{% endif %}" href="{% url 'iletisim' %}">İLETİŞİM</a>
+                </li>
+              </ul>
+              <!-- Search -->
+              <form action="{% url 'search' %}" class="d-flex position-relative">
+                <input class="form-control me-2" name="q" placeholder="Search" aria-label="Search">
+                <button type="submit" class="btn ps-0 position-absolute end-0"><i class="bi bi-search"></i></button>
+              </form>
+               <div class="bg-light icon profil">
+                    {% if request.user.is_authenticated %}
+                    <ul class="d-inline-block p-0 m-0">
+                      <li class="nav-item dropdown position-relative" style="list-style-type: none;"><a class="nav-link {% if request.path == '/profil/' %}active{% endif %}"><i class="bi bi-person fs-3"></i><span class="fs-5 ms-1">{{ request.user }}</span>
+                      </a>
+                          <ul class="dropdown-menu position-absolute top-100 end-0">
+                            <li class="d-flex justify-content-center align-items-center"><i class="bi bi-person fs-4 ms-3"></i><a href="{% url 'profil' %}" class="dropdown-item">Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="d-flex justify-content-center align-items-center"><i class="bi bi-heart fs-5 ms-3"></i><a href="#" class="dropdown-item">Favorilerim</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li class="d-flex justify-content-center align-items-center"><i class="bi bi-door-open fs-5 ms-3"></i></i><a href="{% url 'Logout' %}" class="dropdown-item">Çıkış</a></li>
+                          </ul>
+                        </li>
+                      </ul>
+                      <a href="{% url 'sepet' %}" title="Sepetim" class="position-relative {% if request.path == '/sepet/' %}active{% endif %}">
+                        <i class="bi bi-cart"></i><span class="fs-5 ms-1">Sepetim</span>
+                        <span id="item-count" class="position-absolute top-0 end-50 translate-middle badge rounded-pill bg-danger mt-1">{{ urunAdet|length }}</span>
+                      </a>
+                    {% else %}
+                        <a href="{% url 'uyelik' %}" title="Giriş Yap " class="btn btn-primary text-dark">Giriş Yap</a>
+                        <a href="{% url 'uyekayit' %}" title="Üye Ol" class="btn btn-primary text-dark">Üye Ol</a>
+                    {% endif %}
+                  
+              </div>
+            </div>
+          </div>
+        </nav>

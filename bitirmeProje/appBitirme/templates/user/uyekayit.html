@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}ÜYELİK{% endblock title %}
+  
+
+{% block content %}
+    <!-- İçerik -->
+    {% if messages %}
+    <ul class="container-fluid p-0 position-absolute">
+      {% for i in messages %}
+    <div class="alert  {{ i.tags }} alert-dismissible fade show mb-0 text-center">
+        {{ i }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+    {% endfor %}
+  </ul>
+  {% endif %}
+    <div class="container my-5 py-5 ">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <form method="POST">
+                    {% csrf_token %}
+                  <h2 class="mb-3 d-block text-center mt-md-0 mt-5"><strong>ÜYE OL</strong></h2>
+                    <input name='name' type="text" placeholder="Ad" id="name" class="form-control mb-3">
+                    <input name='surname' type="text" placeholder="Soyad" id="surname" class="form-control mb-3">
+                    <input name='username' type="text" placeholder="Kullanıcı Adı" id="surname" class="form-control mb-3">
+                    <input name="email" type="email" placeholder="E-Posta Adresi" id="mail2" class="form-control mb-3">
+                    <input name="password" type="password" placeholder="Parola" id="sifre2" class="form-control mb-3 password">
+                    <input name="password2" type="password" placeholder="Parola Tekrar" id="sifre3" class="form-control mb-3 password">
+                    <input type="checkbox" onclick="showPword()">
+                    <label class="check-container mb-3">Parolayı Göster</label>
+                    
+                    <p class="text-center">Üye misiniz ? Giriş yapmak için <a href="/uyelik/">tıklayınız</a></p>
+                    <div class="mb-4">
+                      <a href="#" class="text-decoration-none text-dark"><img src="https://img.icons8.com/color/48/null/google-logo.png" style="width: 30px;" alt="resim"> <i>Google</i> ya da</a>
+                      <a href="#" class="text-decoration-none text-dark"><img src="https://img.icons8.com/color/48/null/facebook.png" style="width: 40px;" alt="resim"> <i>Facebook</i> ile üye ol!</a>
+                    </div>
+                    <button type="submit" class="btn btn-primary buton2 d-block ms-auto">Üye Ol</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+
+{% block js %}
+  <script>
+    function showPword() {
+      var x = document.getElementsByClassName("password");
+      for (let i = 0; i < x.length; i++){
+          if (x[i].type === "password") {
+            x[i].type = "text";
+          } else {
+            x[i].type = "password";
+          }
+      }
+    }
+  </script>
+{% endblock js %}
+  
+    

@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}PROFİL{% endblock title %}
+    
+{% block css %}
+<style>
+.message{
+  animation: message 4s both;
+}
+@keyframes message {
+  0%{
+    opacity: 1;
+  }
+  100%{
+    opacity: 0;
+  }
+}
+</style>
+  
+{% endblock css %}
+  
+
+{% block content %}
+{% if messages %}
+<ul class="message container-fluid p-0 position-absolute z-1">
+  {% for i in messages %}
+<div class="alert {{ i.tags }} alert-dismissible fade show mb-0 text-center">
+    {{ i }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+</div>
+{% endfor %}
+</ul>
+{% endif %}
+<section>
+    <div class="container py-5 mt-5">
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="card mb-4 border-0">
+            <div class="card-body text-center">
+              
+              {% if userinfo.image %}
+              <img src="{{ userinfo.image.url }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              {% else %}
+              <img src="{% static 'img/default-profil/defaultProfil.webp' %}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              {% endif %}
+                
+              <h5 class="my-3">{{ user.username }}</h5>
+              <div class="d-flex justify-content-center mb-2">
+                <a href="/sifreDegistir/" type="button" class="btn btn-outline-primary me-3">Şifre Değiştir</a>
+                <!-- Button trigger modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalProfil">
+                Profil Düzenle
+            </button>
+
+<!-- Modal -->
+<div class="modal fade" id="modalProfil" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h1 class="modal-title fs-5" id="exampleModalLabel">Profil Düzenle</h1>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="image" class="form-control mb-3" placeholder="Resim Yükle">
+      <input type="text" name="username" class="form-control mb-3" value= "{{ user.username }}">
+      <input type="password" name="password" class="form-control mb-3" placeholder="Şifreniz">
+      <button type="submit" name="formbuton" value="profilChange" class="btn btn-primary d-block ms-auto">Kaydet</button>
+    </form>
+    </div>
+  </div>
+</div>
+</div>
+            </div>
+              </div>
+            </div>
+          
+          <!-- List Group -->
+          <div class="list-group">
+            <button type="button" class="list-group-item list-group-item-action border-0 active">Kullanıcı Bilgilerim</button>
+            <button type="button" class="list-group-item list-group-item-action border-0">Siparişlerim</button>
+            <button type="button" class="list-group-item list-group-item-action border-0">Kartlarım</button>
+            <button type="button" class="list-group-item list-group-item-action border-0">Mesajlarım</button>
+            <button type="button" class="list-group-item list-group-item-action border-0">Değerlendirmelerim</button>
+          </div>
+        </div>
+        
+        <div class="col-lg-8">
+          <div class="card mb-4 border-0" style="height: 371px;">
+            <div class="card-body ">
+              <div class="row h-100">
+                <!-- Full Name Change -->
+                <div class="col-sm-3">
+                  <p class="mb-0">Ad-Soyad</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ user.get_full_name }}</p>
+                </div>
+                <div class="col-sm-2">
+                  <!-- Button trigger modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal1">
+                  Değiştir
+              </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Full Name Değiştir</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" class="form-control mb-3" value= "{{ user.first_name }}">
+        <input type="text" name="surname" class="form-control mb-3" value= "{{ user.last_name }}">
+        <input type="password" name="password" class="form-control mb-3" placeholder="Şifreniz">
+        <button type="submit" name="formbuton" value="fullNameChange" class="btn btn-primary d-block ms-auto">Kaydet</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+              </div>
+              <hr>
+              <!-- E-mail Change -->
+                <div class="col-sm-3">
+                  <p class="mb-0">E-Posta</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ user.email }}</p>
+                </div>
+                <div class="col-sm-2">
+                    <!-- Button trigger modal -->
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    Değiştir
+                </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">E-Mail Değiştir</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form method="POST">
+          {% csrf_token %}
+          <input type="email" name="email" class="form-control mb-3" value= "{{ user.email }}">
+          <input type="password" name="password" class="form-control mb-3" placeholder="Şifreniz">
+          <button type="submit" name="formbuton" value="emailChange" class="btn btn-primary d-block ms-auto">Kaydet</button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+                </div>
+              <hr>
+              <!-- Phone Change -->
+                <div class="col-sm-3">
+                  <p class="mb-0">Telefon Numarası</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">(+90) {{ userinfo.phone_number }}</p>
+                </div>
+                <div class="col-sm-2">
+                  <!-- Button trigger modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal3">
+                  Değiştir
+              </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Telefon Numarası Değiştir</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form method="POST">
+        {% csrf_token %}
+        <input type="number" name="number" class="form-control mb-3" value="{{ userinfo.phone_number }}">
+        <input type="password" name="password" class="form-control mb-3" placeholder="Şifreniz">
+        <button type="submit" name="formbuton" value="numberChange" class="btn btn-primary d-block ms-auto">Kaydet</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+              </div>
+              <hr>
+              <!-- Adres Change -->
+                <div class="col-sm-3">
+                  <p class="mb-0">Adres</p>
+                </div>
+                <div class="col-sm-7">
+                  <p class="text-muted mb-0">{{ userinfo.address }}</p>
+                </div>
+                <div class="col-sm-2">
+                  <!-- Button trigger modal -->
+              <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal4">
+                  Değiştir
+              </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Adres Değiştir</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <form method="POST">
+        {% csrf_token %}
+        <textarea rows="5" type="text" name="adres" class="form-control mb-3" style="resize: none;">{{ userinfo.address }}</textarea>
+        <input type="password" name="password" class="form-control mb-3" placeholder="Şifreniz">
+        <button type="submit" name="formbuton" value="adresChange" class="btn btn-primary d-block ms-auto">Kaydet</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+              </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock content %}
+    

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}İLETİŞİM{% endblock title %}
+  
+
+{% block content %}
+    <!-- İçerik -->
+    <div class="container mt-5 p-5">
+      <div class="row">
+        <div class="col-md-8 mt-3">
+          <label class="d-block text-center"><strong>İLETİŞİME GEÇ</strong></label>
+          <form method="POST">
+            {% csrf_token %}
+              <label for="exampleInputEmail1" class="form-label">Ad-Soyad</label>
+              <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="{{ request.user.get_full_name }}">
+              <label for="exampleInputPassword1" class="form-label mt-3">E-Posta Adresi</label>
+              <input type="email" name="email" class="form-control" id="exampleInputPassword1" value="{{ request.user.email }}">
+              <label for="exampleInputPassword1" class="form-label mt-3">Konu</label>
+              <input type="text" name="konu" class="form-control" id="exampleInputPassword1" placeholder="Konu...">
+              <label for="exampleInputPassword1" class="form-label mt-3">Mesaj</label>
+            <textarea class="form-control" name="mesaj" rows="10" placeholder="Mesajınız..." id="floatingTextarea2" style="resize: none;"></textarea>
+          <button type="submit" class="btn btn-primary mt-3 float-end" id="buton">GÖNDER</button>
+        </form>
+        </div>
+        <div class="col-md-4 mt-4">
+          <label><strong>İLETİŞİM BİLGİLERİ</strong></label>
+          <p class="mt-2">Fatih Yapan Ltd. Şti.</p>
+          <p><strong>ADRES:</strong> 100.yıl Mahallesi Öğretmenler Sitesi B/10 D/8 KARABÜK/MERKEZ</p>
+          <p><strong>CEP TEL:</strong> 0507 963 71 95</p>
+          <p><strong>FAX:</strong> 0370 433 33 02</p>
+          <p><strong>E-Posta Adresi:</strong> yapanfatih78@gmail.com</p>
+          <label class="mt-5"><strong>SOSYAL MEDYA HESAPLARI</strong></label>
+          <div class="sosyal_medya mt-3 ms-3 text-center">
+            <a href="#" title="Facebook" class="text-dark fs-3"><i class="bi bi-facebook"></i></a>
+            <a href="#" title="Twitter" class="text-dark fs-3"><i class="bi bi-twitter"></i></a>
+            <a href="#" title="İnstagram" class="text-dark fs-3"><i class="bi bi-instagram"></i></a>
+            <a href="#" title="Tiktok" class="text-dark fs-3"><i class="bi bi-tiktok"></i></a>
+            <a href="#" title="Youtube" class="text-dark fs-3"><i class="bi bi-youtube"></i></a>
+        </div>
+        </div>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2122.1596658789226!2d32.67225108081561!3d41.21769558798828!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x408354a4c24246db%3A0xe7dfeae64c0e794e!2sBilgekent%20Sitesi!5e0!3m2!1str!2str!4v1669985536125!5m2!1str!2str" width="1200" height="450" style="border:0; margin-top:50px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+{% endblock content %}
