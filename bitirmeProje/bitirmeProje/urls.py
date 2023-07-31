@@ -35,6 +35,6 @@ urlpatterns = [
     path('profil/', profil, name='profil'),
     path('detail/<slug>/', detail, name='detail'),
     path('sifreunutma/', sendMail, name='sifreunutma'),
-    # SEARCH
-    path("search/", search, name='search'),
+    # Search 
+    path('search/', search, name='search'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

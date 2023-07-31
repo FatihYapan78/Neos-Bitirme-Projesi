@@ -21,9 +21,11 @@
                 <form method="POST">
                   {% csrf_token %}
                   <h2 class="mb-3 d-block text-center"><strong>ŞİFRE DEĞİŞTİR</strong></h2>
-                    <input name="password" type="password" placeholder="Şifreniz" id="name" class="form-control mb-3">
-                    <input name="password1" type="password" placeholder="Yeni Şifre" id="name" class="form-control mb-3">
-                    <input name ="password2" type="password" placeholder="Yeni Şifre Tekrar" id="sifre" class="form-control mb-3">
+                    <input name="password" type="password" placeholder="Şifreniz" id="name" class="form-control mb-3 password">
+                    <input name="password1" type="password" placeholder="Yeni Şifre" id="name" class="form-control mb-3 password">
+                    <input name ="password2" type="password" placeholder="Yeni Şifre Tekrar" id="sifre" class="form-control mb-3 password">
+                    <input type="checkbox" onclick="showPword()">
+                    <label class="check-container mb-3">Parolayı Göster</label>
                     <button type="submit" class="btn btn-primary buton d-block ms-auto">Kaydet</button>
                 </form>
             </div>
@@ -31,4 +33,17 @@
     </div>
 {% endblock content %}
 
-    
+{% block js %}
+  <script>
+    function showPword() {
+      var x = document.getElementsByClassName("password");
+      for (let i = 0; i < x.length; i++){
+          if (x[i].type === "password") {
+            x[i].type = "text";
+          } else {
+            x[i].type = "password";
+          }
+      }
+    }
+  </script>
+{% endblock js %}

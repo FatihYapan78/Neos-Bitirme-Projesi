@@ -39,8 +39,8 @@
                 </li>
               </ul>
               <!-- Search -->
-              <form action="{% url 'search' %}" class="d-flex position-relative">
-                <input class="form-control me-2" name="q" placeholder="Search" aria-label="Search">
+              <form action="{% url 'search' %}" method="get" class="d-flex position-relative">
+                <input type="text" class="form-control me-2" name="q" placeholder="Search">
                 <button type="submit" class="btn ps-0 position-absolute end-0"><i class="bi bi-search"></i></button>
               </form>
                <div class="bg-light icon profil">
@@ -62,8 +62,8 @@
                         <span id="item-count" class="position-absolute top-0 end-50 translate-middle badge rounded-pill bg-danger mt-1">{{ urunAdet|length }}</span>
                       </a>
                     {% else %}
-                        <a href="{% url 'uyelik' %}" title="Giriş Yap " class="btn btn-primary text-dark">Giriş Yap</a>
-                        <a href="{% url 'uyekayit' %}" title="Üye Ol" class="btn btn-primary text-dark">Üye Ol</a>
+                        <a href="{% url 'uyelik' %}" title="Giriş Yap " class="btn btn-outline-success text-success">Giriş Yap</a>
+                        <a href="{% url 'uyekayit' %}" title="Üye Ol" class="btn btn-outline-success text-success">Üye Ol</a>
                     {% endif %}
                   
               </div>

@@ -7,6 +7,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
+from django.db.models import Q
+
 
 def urunAdet(request):
     if request.user.is_authenticated:
@@ -42,7 +44,7 @@ def sendMail(request):
     else:
         return render(request, 'user/sifreunutma.html', context)
     
-# @login_required()
+@login_required()
 def iletisim(request):
     context={
         'urunAdet':urunAdet(request),
@@ -338,17 +340,15 @@ def uyekayit(request):
         password = request.POST['password']
         password2 = request.POST['password2']
         harfup = False
-        harflen = False
         harfnum = False
-        for harf in password:
-            if harf.isupper():
-                harfup=True
-                if len(harf) >= 5:
-                    harflen=True
-                    if harf.isnumeric():
-                        harfnum = True
         if password == password2:
-            if harfup and harfnum and harflen:
+            for harf in password:
+                if harf.isupper():
+                    harfup=True
+                if harf.isnumeric():
+                    harfnum = True
+        
+            if harfup and harfnum and len(password) >= 5:
                 if not User.objects.filter(username=username).exists():
                     if not User.objects.filter(email=email).exists():
                         user = User.objects.create_user(username=username,first_name=name, last_name=surname, email=email, password=password)
@@ -375,6 +375,7 @@ def Logout(request):
 
 def sifreDegistir(request):
     userinfo = UserInfo.objects.get(user=request.user)
+    user = User.objects.get(username=request.user) # Girişli kullanıcıyı seçer.
     print(userinfo.password)
     context={
         'urunAdet':urunAdet(request),
@@ -383,22 +384,33 @@ def sifreDegistir(request):
         password = request.POST['password']
         password1 = request.POST['password1']
         password2 = request.POST['password2']
-        user = User.objects.get(username=request.user) # Girişli kullanıcıyı seçer.
-        if user.check_password(password): # Eski parolayı kontrol et
-            if password1 != " ":
-                if password1 == password2:
-                    user.set_password(password1)
-                    user.save()
-                    userinfo.password = password1
-                    userinfo.save()
-                    logout(request)
-                    return redirect('uyelik')
+        harfup = False
+        harfnum = False
+        for harf in password1:
+            if harf.isupper():
+                harfup=True
+            if harf.isnumeric():
+                harfnum = True
+        if harfup and harfnum and len(password1) >= 5:
+            if user.check_password(password): # Eski parolayı kontrol et
+                if password1 != " ":
+                    if password1 == password2:
+                        user.set_password(password1)
+                        user.save()
+                        userinfo.password = password1
+                        userinfo.save()
+                        logout(request)
+                        return redirect('uyelik')
+                    else:
+                        messages.error(request,'Şifreler uyumsuz!!')
                 else:
-                    messages.error(request,'Şifreler uyumsuz!!')
+                    messages.error(request,'Yeni Şifre kısmı boş bırakılamaz')
             else:
-                messages.error(request,'Yeni Şifre kısmı boş bırakılamaz')
+                messages.error(request,'Eski şifreniz yanlış!!')
         else:
-            messages.error(request,'Eski şifreniz yanlış!!')
+            messages.error(request,'Yeni Şifre en az bir büyük harf içermelidir.')
+            messages.error(request,'Yeni Şifre en az bir sayı içermelidir.')
+            messages.error(request,'Yeni Şifre en az 5 karakter uzunluğunda olmalıdır.')
     return render(request, 'user/sifreDegistir.html', context)
 
 def profil(request):
@@ -414,6 +426,8 @@ def profil(request):
             if user.check_password(password):
                 username = request.POST['username']
                 image = request.FILES.get('image')
+                if image is None:
+                    image = userinfo.image
                 user.username = username
                 user.save()
                 userinfo.image = image
@@ -473,16 +487,22 @@ def profil(request):
     return render(request, 'user/profil.html',context)
 
 def search(request):
-    if 'q' in request.GET and request.GET['q'] != "":
+    # if request.method == "GET":
+    #     q = request.GET.get('q')
+    #     card = Card.objects.filter(title__contains=q) 
+    # return render(request, 'magaza.html',{
+    #     'card':card,
+    # })
+    if "q" in request.GET and request.GET['q'] != "":
         q = request.GET['q']
-        card = Card.objects.filter(title__contains=q)
-        category = Category.objects.all()
+        card = Card.objects.filter(Q(title__contains=q) | Q(text__icontains=q))
     else:
         return redirect('magaza')
+    
     return render(request, 'magaza.html',{
-        "category":category,
-        "card":card,
+        'card':card
     })
+
 
 def cardDelete(request,did):
     card = Card.objects.get(id=did)
