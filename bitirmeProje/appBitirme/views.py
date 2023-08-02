@@ -125,8 +125,8 @@ def magaza(request):
     }
     return render(request, 'magaza.html', context)
 
-def kategori(request,categoryid):
-    card = Card.objects.filter(categorys=categoryid)
+def kategori(request,categoryslug):
+    card = Card.objects.filter(categorys__slug=categoryslug)
     categorys = Category.objects.all()
     if request.method == 'POST':
         if request.POST.get('submit') == 'urunDuzen':

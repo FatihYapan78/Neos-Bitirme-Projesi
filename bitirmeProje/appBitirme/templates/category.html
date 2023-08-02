@@ -28,7 +28,7 @@
             <div class="list-group mt-5">
             <a href="{% url 'magaza' %}" class="list-group-item list-group-item-action">Tüm Ürünler</a>
               {% for i in categorys %}
-                <a href="{% url 'kategori' i.id %}" class="list-group-item list-group-item-action" aria-current="true">{{ i.category }}</a>
+                <a href="{% url 'kategori' i.slug %}" class="list-group-item list-group-item-action" aria-current="true">{{ i.category }}</a>
             {% endfor %}
           </div>
             

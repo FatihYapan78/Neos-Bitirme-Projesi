@@ -45,7 +45,7 @@
             <div class="list-group mt-5">
             
               {% for i in categorys %}
-            <a href="{% url 'kategori' i.id %}" class="list-group-item list-group-item-action" aria-current="true">{{ i.category }}</a>
+            <a href="{% url 'kategori' i.slug %}" class="list-group-item list-group-item-action" aria-current="true">{{ i.category }}</a>
             {% endfor %}
           </div>
             <!-- Swiper -->
